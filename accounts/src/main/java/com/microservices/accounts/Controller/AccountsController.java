@@ -40,6 +40,7 @@ public class AccountsController {
     private AccountsService accountsService;
 
 
+
     @Operation(
             summary = "Create Account REST API",
             description = "REST API to create a new customer & account inside EazyBank"
@@ -55,12 +56,18 @@ public class AccountsController {
             responseCode = "500",
             description = "Http Status Internal Server Error",
             content = @Content(
-                    schema =  @Schema(implementation = ErrorResponseDto.class)
+                    schema = @Schema(implementation = ErrorResponseDto.class)
             )
     )
     }
-
     )
+
+    @GetMapping("/sayMyName")
+    public String sayMyName(){
+        return "Hello Heisenberg!!!!!";
+    }
+
+
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto){
            // anytime Customer already exists exception is thrown from the service layer
