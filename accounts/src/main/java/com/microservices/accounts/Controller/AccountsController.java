@@ -61,13 +61,6 @@ public class AccountsController {
     )
     }
     )
-
-    @GetMapping("/sayMyName")
-    public String sayMyName(){
-        return "Hello Heisenberg!!!!!";
-    }
-
-
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto){
            // anytime Customer already exists exception is thrown from the service layer
