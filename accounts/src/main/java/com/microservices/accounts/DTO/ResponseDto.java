@@ -8,7 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Schema(
         name = "Response",
-        description = "Schema to hold successfull response info "
+        description = "Schema to hold successful response info "
 )
 public class ResponseDto {
     @Schema(
