@@ -6,7 +6,11 @@ import com.microservices.loans.DTO.LoanDto;
 import com.microservices.loans.DTO.ResponseDto;
 import com.microservices.loans.Mapper.LoansMapper;
 import com.microservices.loans.Service.LoanService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
@@ -30,6 +34,23 @@ import java.awt.*;
 public class LoansController {
     private LoanService loanService;
 
+    @Operation(
+            summary = "Create Loan Rest API",
+            description = "REST API to create new Loan inside EazyBank"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "HTTP Status Created"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
     @PostMapping(value = "/create")
     public ResponseEntity<ResponseDto> createLoan(@RequestParam
                                                   @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
@@ -41,6 +62,23 @@ public class LoansController {
 
     }
 
+    @Operation(
+            summary = "Fetch Loan details fetch API",
+            description = "REST API to fetch loan details based on mobile number"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
     @GetMapping(value = "/fetch")
     public ResponseEntity<LoanDto> fetchLoanDetails(@RequestParam
                                                             @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
@@ -49,6 +87,28 @@ public class LoansController {
         return new ResponseEntity<>(loansDto,HttpStatus.OK);
     }
 
+
+    @Operation(
+            summary = "Update Loan details REST API",
+            description = "REST API to update loan details based on a loan number"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "417",
+                    description = "Expectation failed"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
     @PutMapping(value="/update")
     public ResponseEntity<ResponseDto> updateLoanDetails(@Valid @RequestBody LoanDto loanDto){
         boolean isUpdated = loanService.updateLoan(loanDto);
@@ -61,6 +121,28 @@ public class LoansController {
                 new ResponseDto(LoansConstants.STATUS_417,LoansConstants.MESSAGE_417_UPDATE)
         );
     }
+
+    @Operation(
+            summary = "Delete Loan Details REST API",
+            description = "REST API to delete loan details based on mobile number"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "417",
+                    description = "Expectation failed"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
 
     @DeleteMapping(value="/delete")
     public ResponseEntity<ResponseDto> deleteLoan(@RequestParam
