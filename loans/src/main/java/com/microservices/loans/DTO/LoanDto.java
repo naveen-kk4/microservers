@@ -20,9 +20,9 @@ public class LoanDto {
     private String mobileNumber;
 
     @NotEmpty(message = "loan number cannot  be null or empty")
-    @Pattern( regexp = "(^$|[0-9]{12})" , message = "Mobile number must be 12 digits")
+    @Pattern( regexp = "(^$|[0-9]{12})" , message = "Loan number must be 12 digits")
     @Schema(
-            description = "Mobile number of customer" , example = "678909768756"
+            description = "Loan number of customer" , example = "678909768756"
     )
 
     private String loanNumber;

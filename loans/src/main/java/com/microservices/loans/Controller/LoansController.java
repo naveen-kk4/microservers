@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -54,8 +55,9 @@ public class LoansController {
     @PostMapping(value = "/create")
     public ResponseEntity<ResponseDto> createLoan(@RequestParam
                                                   @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
-                                                      String mobNumber){
-  loanService.createLoan(mobNumber);
+
+                                                      String mobileNumber){
+  loanService.createLoan(mobileNumber);
   return ResponseEntity.status(HttpStatus.CREATED).body(
           new ResponseDto(LoansConstants.STATUS_201,LoansConstants.MESSAGE_201)
   );

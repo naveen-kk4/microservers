@@ -9,6 +9,7 @@
         <option value="$USER_HOME$/Downloads/cards/pom.xml" />
         <option value="$PROJECT_DIR$/cards/pom.xml" />
         <option value="$PROJECT_DIR$/../cards/pom.xml" />
+        <option value="$PROJECT_DIR$/../section4/cards/pom.xml" />
       </list>
     </option>
   </component>
